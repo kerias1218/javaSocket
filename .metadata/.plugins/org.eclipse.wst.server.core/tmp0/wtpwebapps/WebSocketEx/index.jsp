@@ -60,8 +60,9 @@ webSocket.onerror = function(message){
 webSocket.onmessage = function processMessge(message){
 	
 	//Json 풀기
-	var jsonData = JSON.parse(message.data);
-	console.log(jsonData);
+	var jsonDataOri = JSON.parse(message.data);
+	var jsonData = jsonDataOri.chat;
+	console.log(jsonDataOri);
 	
 		if(jsonData.message != null) {
 			var name = jsonData.username;

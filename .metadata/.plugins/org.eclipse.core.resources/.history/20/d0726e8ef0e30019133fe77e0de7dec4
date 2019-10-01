@@ -1,0 +1,28 @@
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.websocket.Session;
+
+import com.google.gson.Gson;
+
+public class Other {
+	public Other() {
+		System.out.println("Ohter Data.....");
+	}
+	
+	public String getOtherData() {
+		List<String> otherData = new ArrayList<String>();
+		
+		String name1 = "aaa";
+		String name2 = "bbb";
+		String name3 = "ccc";
+		
+		otherData.add(name1);
+		otherData.add(name2);
+		otherData.add(name3);
+		
+		Gson gson = new Gson();
+		return gson.toJson(otherData);
+	
+	}
+}

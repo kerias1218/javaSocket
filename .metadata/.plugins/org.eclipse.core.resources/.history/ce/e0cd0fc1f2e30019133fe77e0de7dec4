@@ -1,0 +1,142 @@
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+import java.util.Random;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+
+@ServerEndpoint("/broadsocket")
+public class broadsocket {
+	
+	//유저 집합 리스트	
+	static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<Session>());
+	Chat chat;
+	
+	/**
+	* 웹 소켓이 접속되면 유저리스트에 세션을 넣는다.
+	* @param userSession 웹 소켓 세션
+	 * @throws IOException 
+	*/
+	@OnOpen
+	public void handleOpen(Session userSession) throws IOException{
+
+		sessionUsers.add(userSession);
+		
+		Chat c = new Chat(userSession);
+		this.chat = c;
+		String username = this.chat.makeRandomStr();
+		String message = this.chat.initChat(username);
+		this.chat.putSession(username);
+		
+		sendMessage("System", username, message );
+	}
+	
+	
+	/**
+	* 웹 소켓으로부터 메시지가 오면 호출한다.
+	* @param message 메시지
+	* @param userSession
+	* @throws IOException
+	*/
+
+	@OnMessage
+	public void handleMessage(String message, Session userSession) throws IOException {
+		String username = this.chat.getUserName(userSession);
+		sendMessage(username, username, message);
+		
+	}
+
+	private void sendMessage(String username, String me, String message) throws IOException {
+		Iterator<Session> iterator = sessionUsers.iterator();
+		while(iterator.hasNext()){
+			iterator.next().getBasicRemote().sendText(buildJsonDataChat(username, me, message));
+		}
+	}
+	
+	
+	@OnError
+	public void handleError(Throwable t){
+		t.printStackTrace();
+	}
+
+	/**
+	* 웹소켓을 닫으면 해당 유저를 유저리스트에서 뺀다.
+	* @param userSession
+	 * @throws IOException 
+	*/
+	
+	@OnClose
+	public void handleClose(Session userSession) throws IOException{
+		
+		System.out.println("OnClose");				
+		String username = this.chat.getUserName(userSession);
+		String message = this.chat.destroyChat(username);
+			
+		sessionUsers.remove(userSession);
+		
+		sendMessage("System", username, message);
+		
+	}
+		
+	private String buildJsonDataChat(String username, String me, String message) {
+		
+		Other other = new Other();
+		
+		String json = null;
+		Gson gson = new Gson();
+		JsonObject top = new JsonObject();
+		JsonObject object = new JsonObject();
+		object.addProperty("username", username);
+		object.addProperty("me",  me);
+		object.addProperty("message", message);
+		object.addProperty("totalUsers", getToalUsers());
+		object.addProperty("allMembers", getAllMembersRoom());
+		object.addProperty("other", other.getOtherData());
+		
+		
+		json = gson.toJson(object);
+		System.out.println(json);
+		return json;
+	}
+		
+	private int getToalUsers() {
+		return sessionUsers.size();
+	}
+	
+	private String getAllMembersRoom() {
+		List<String> allUsersRoom = new ArrayList<String>();
+		for(Session sess : sessionUsers) {
+			String name = (String)sess.getUserProperties().get("username");
+			allUsersRoom.add(name);
+		}
+		Gson gson = new Gson();
+		return gson.toJson(allUsersRoom);
+	
+	}
+		
+	private void getSessions() { 
+		int max = sessionUsers.size();
+		
+		for(Session sess : sessionUsers) {			
+			//System.out.println(sess);
+		}
+	}
+	
+}
+
+
+

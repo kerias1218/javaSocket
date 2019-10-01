@@ -24,7 +24,7 @@ public class broadsocket {
 	
 	//유저 집합 리스트	
 	static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<Session>());
-
+	Chat chat;
 	
 	/**
 	* 웹 소켓이 접속되면 유저리스트에 세션을 넣는다.
@@ -36,24 +36,13 @@ public class broadsocket {
 
 		sessionUsers.add(userSession);
 		
-		Chat chat = new Chat(userSession);
-		String username = chat.makeRandomStr2();
-		String message = chat.initChat(username);
-		chat.putSession(username);
+		Chat c = new Chat(userSession);
+		this.chat = c;
+		String username = this.chat.makeRandomStr();
+		String message = this.chat.initChat(username);
+		this.chat.putSession(username);
 		
-		
-		/*
-		System.out.println("client is now connected...");
-		sessionUsers.add(userSession);
-		System.out.println(userSession);
-		
-		String username = makeRandomStr();
-		String message = username + "님  입장 하셨습니다";
-
-		userSession.getUserProperties().put("username", username);
-		*/
 		sendMessage("System", username, message );
-		
 	}
 	
 	
@@ -66,12 +55,7 @@ public class broadsocket {
 
 	@OnMessage
 	public void handleMessage(String message, Session userSession) throws IOException {
-		
-		String username = (String)userSession.getUserProperties().get("username");
-
-		System.out.println(userSession);
-				
-		
+		String username = this.chat.getUserName(userSession);
 		sendMessage(username, username, message);
 		
 	}
@@ -79,7 +63,7 @@ public class broadsocket {
 	private void sendMessage(String username, String me, String message) throws IOException {
 		Iterator<Session> iterator = sessionUsers.iterator();
 		while(iterator.hasNext()){
-			iterator.next().getBasicRemote().sendText(buildJsonData(username, me, message));
+			iterator.next().getBasicRemote().sendText(buildJsonDataChat(username, me, message));
 		}
 	}
 	
@@ -97,45 +81,40 @@ public class broadsocket {
 	
 	@OnClose
 	public void handleClose(Session userSession) throws IOException{
-		System.out.println("OnClose");
 		
-		String username = (String)userSession.getUserProperties().get("username");
-		String message = username + " 님이 나갔습니다.";
-		
+		System.out.println("OnClose");				
+		String username = this.chat.getUserName(userSession);
+		String message = this.chat.destroyChat(username);
+			
 		sessionUsers.remove(userSession);
 		
 		sendMessage("System", username, message);
 		
 	}
-	
-	private String buildJsonData(String username, String me, String message) {
+		
+	private String buildJsonDataChat(String username, String me, String message) {
+						
 		String json = null;
 		Gson gson = new Gson();
+		JsonObject top = new JsonObject();
+		
 		JsonObject object = new JsonObject();
 		object.addProperty("username", username);
 		object.addProperty("me",  me);
 		object.addProperty("message", message);
 		object.addProperty("totalUsers", getToalUsers());
 		object.addProperty("allMembers", getAllMembersRoom());
-		json = gson.toJson(object);
+		
+		
+		top.add("chat", object);
+		Other other = new Other();
+		top.add("other", other.getOtherData());
+		
+		json = gson.toJson(top);
 		System.out.println(json);
 		return json;
 	}
-	
-	public String makeRandomStr() {
-		Random rnd = new Random();
-		StringBuffer buf =new StringBuffer();
-		for(int i=0;i<5;i++){
-		    if(rnd.nextBoolean()){
-		        buf.append((char)((int)(rnd.nextInt(26))+97));
-		    }else{
-		        buf.append((rnd.nextInt(10)));
-		    }
-		}
 		
-		return buf.toString();
-	}
-	
 	private int getToalUsers() {
 		return sessionUsers.size();
 	}
@@ -150,10 +129,7 @@ public class broadsocket {
 		return gson.toJson(allUsersRoom);
 	
 	}
-	
-	
-	
-	
+		
 	private void getSessions() { 
 		int max = sessionUsers.size();
 		
