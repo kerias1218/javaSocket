@@ -1,0 +1,14 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import javax.websocket.Session;
+
+public class Chat {
+
+	static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<Session>());
+		
+	public Chat() {
+		System.out.println("my name is chat");
+	}
+}

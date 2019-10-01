@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;chat&apos; to &apos;Chat&apos;&#x0A;- Original project: &apos;WebSocketEx&apos;&#x0A;- Original element: &apos;chat&apos;&#x0A;- Renamed element: &apos;Chat&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;chat&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;{chat.java[chat" matchStrategy="1" name="Chat" qualified="false" references="true" similarDeclarations="false" stamp="1569887603571" textual="false" version="1.0"/>
+</session>

@@ -1,0 +1,7 @@
+INDEX VERSION 1.4+/Users/naya/Documents/coforward/javasocket/.metadata/.plugins/org.eclipse.wst.jsdt.core/indexes
+1228105618.index
+1336629797.index
+2013842956.index
+2064226522.index
+3618673131.index
+3496354120.index

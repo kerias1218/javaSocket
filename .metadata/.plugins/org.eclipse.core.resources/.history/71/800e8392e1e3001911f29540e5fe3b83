@@ -1,0 +1,40 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+import javax.websocket.Session;
+
+public class Chat {
+
+	static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<Session>());
+	Session userSession;	
+	
+	public Chat(Session userSession) {
+		this.userSession = userSession;
+		System.out.println("client is now connected...");
+		System.out.println(userSession);
+	}
+	
+	public void addSession() {
+		sessionUsers.add(this.userSession);
+	}
+	
+	public void putSession(String username) {
+		this.userSession.getUserProperties().put("username", username);
+	}
+	
+	public String makeRandomStr() {
+		Random rnd = new Random();
+		StringBuffer buf =new StringBuffer();
+		for(int i=0;i<5;i++){
+		    if(rnd.nextBoolean()){
+		        buf.append((char)((int)(rnd.nextInt(26))+97));
+		    }else{
+		        buf.append((rnd.nextInt(10)));
+		    }
+		}
+		
+		return buf.toString();
+	}
+}

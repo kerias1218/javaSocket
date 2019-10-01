@@ -1,0 +1,3 @@
+INDEX VERSION 1.131
+/Users/naya/Documents/coforward/javasocket/.metadata/.plugins/org.eclipse.jst.jsp.core/jspsearch/3266583502.index
+/WebSocketEx/src

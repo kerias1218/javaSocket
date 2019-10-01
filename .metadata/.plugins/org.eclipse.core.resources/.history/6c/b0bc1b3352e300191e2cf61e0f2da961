@@ -1,0 +1,204 @@
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
+import javax.websocket.OnClose;
+import javax.websocket.OnError;
+import javax.websocket.OnMessage;
+import javax.websocket.OnOpen;
+import javax.websocket.Session;
+import javax.websocket.server.ServerEndpoint;
+import java.util.Random;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+
+
+@ServerEndpoint("/broadsocket")
+public class broadsocket {
+	
+	//유저 집합 리스트	
+	//static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<>());
+	static List<Session> sessionUsers = Collections.synchronizedList(new ArrayList<Session>());
+	
+	
+	/**
+	* 웹 소켓이 접속되면 유저리스트에 세션을 넣는다.
+	* @param userSession 웹 소켓 세션
+	 * @throws IOException 
+	*/
+	@OnOpen
+	public void handleOpen(Session userSession) throws IOException{
+		System.out.println("client is now connected...");
+
+		sessionUsers.add(userSession);
+		
+		String username = makeRandomStr();
+		String message = username + "님  입장 하셨습니다";
+
+		userSession.getUserProperties().put("username", username);
+		
+		sendMessage("System", username, message );
+		
+		
+		
+		//getSessions();
+		
+		
+		
+	}
+	
+	
+	/**
+	* 웹 소켓으로부터 메시지가 오면 호출한다.
+	* @param message 메시지
+	* @param userSession
+	* @throws IOException
+	*/
+
+	@OnMessage
+	public void handleMessage(String message, Session userSession) throws IOException {
+		//System.out.println(userSession.getUserProperties());
+		String username = (String)userSession.getUserProperties().get("username");
+
+		System.out.println(username);
+		
+		//세션 프로퍼티에 username이 없으면 username을 선언하고 해당 세션을으로 메시지를 보낸다.(json 형식이다.)
+		//최초 메시지는 username설정
+		
+		/*
+		Map<String, Object> testData = new HashMap<String, Object>();
+		String name = "홍길";
+		testData.put("username",  name);
+		testData.put("message",  message);
+		Gson gson = new Gson();
+		String json = gson.toJson(testData);
+		*/
+		
+		/*
+		Gson gson = new Gson();
+		JsonObject object = new JsonObject();
+		object.addProperty("username", username);
+		object.addProperty("message", message);
+		String json = gson.toJson(object);
+		*/
+		
+		//System.out.println(json);
+		
+		/*
+		if(username == null){
+			userSession.getUserProperties().put("username", message);
+		
+			userSession.getBasicRemote().sendText(buildJsonData("System", "you are now connected as " + message));
+			return;
+		}
+		*/
+	
+		
+		
+		//username이 있으면 전체에게 메시지를 보낸다.
+		/*
+		Iterator<Session> iterator = sessionUsers.iterator();
+		while(iterator.hasNext()){
+			iterator.next().getBasicRemote().sendText(buildJsonData(username,message));
+		}
+		*/
+		
+		
+		sendMessage(username, username, message);
+		
+	}
+
+	private void sendMessage(String username, String me, String message) throws IOException {
+		Iterator<Session> iterator = sessionUsers.iterator();
+		while(iterator.hasNext()){
+			iterator.next().getBasicRemote().sendText(buildJsonData(username, me, message));
+		}
+	}
+	
+	
+	@OnError
+	public void handleError(Throwable t){
+		t.printStackTrace();
+	}
+
+	/**
+	* 웹소켓을 닫으면 해당 유저를 유저리스트에서 뺀다.
+	* @param userSession
+	 * @throws IOException 
+	*/
+	
+	@OnClose
+	public void handleClose(Session userSession) throws IOException{
+		System.out.println("OnClose");
+		
+		String username = (String)userSession.getUserProperties().get("username");
+		String message = username + " 님이 나갔습니다.";
+		
+		sessionUsers.remove(userSession);
+		
+		sendMessage("System", message);
+		
+	}
+	
+	private String buildJsonData(String username, String me, String message) {
+		String json = null;
+		Gson gson = new Gson();
+		JsonObject object = new JsonObject();
+		object.addProperty("username", username);
+		object.addProperty("me",  me);
+		object.addProperty("message", message);
+		object.addProperty("totalUsers", getToalUsers());
+		object.addProperty("allMembers", getAllMembersRoom());
+		json = gson.toJson(object);
+		System.out.println(json);
+		return json;
+	}
+	
+	private int getToalUsers() {
+		return sessionUsers.size();
+	}
+	
+	private String getAllMembersRoom() {
+		List<String> allUsersRoom = new ArrayList<String>();
+		for(Session sess : sessionUsers) {
+			String name = (String)sess.getUserProperties().get("username");
+			allUsersRoom.add(name);
+		}
+		Gson gson = new Gson();
+		return gson.toJson(allUsersRoom);
+	
+	}
+	
+	private String makeRandomStr() {
+		Random rnd =new Random();
+		StringBuffer buf =new StringBuffer();
+		for(int i=0;i<5;i++){
+		    if(rnd.nextBoolean()){
+		        buf.append((char)((int)(rnd.nextInt(26))+97));
+		    }else{
+		        buf.append((rnd.nextInt(10)));
+		    }
+		}
+		
+		return buf.toString();
+	}
+	
+	private void getSessions() { 
+		int max = sessionUsers.size();
+		
+		//System.out.println(max);
+		for(Session sess : sessionUsers) {			
+			//System.out.println(sess);
+		}
+	}
+	
+}
+
+
+

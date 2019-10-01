@@ -1,0 +1,6 @@
+
+public class Chat {
+	public aa() {
+		System.out.println("my name is chat");
+	}
+}
