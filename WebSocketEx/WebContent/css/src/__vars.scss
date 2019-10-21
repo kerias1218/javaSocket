@@ -1,0 +1,27 @@
+/*==== 변수 설정 파일 =====*/
+/*coForward 기본 색상*/
+$color_01 : rgb(8, 80, 160);
+$color_02 : rgb(0, 153, 216);
+$color_03 : rgb(0,168,134);
+$shadow :rgba(0,0,0,0.5);
+
+/*부트스트랩 기본 색상*/
+$color_primary:#007bff;
+$color_secondary:#868e96;
+$color_success:#28a745;
+$color_danger:#dc3545;
+$color_warning:#ffc107;
+$color_info:#17a2b8;
+$color_light:#f8f9fa;
+$color_dark:#343a40;
+
+/*유진선물 기본 색상*/
+$eg_01:#f00;
+$eg_02:#ccc;
+
+/*개발용 임시*/
+$test_c01:rgba(255,0,0,0.3);
+$test_c02:rgba(0,255,0,0.3);
+$test_c03:rgba(0,0,255,0.3);
+$test_c04:rgba(0,0,0,0.3);
+$test_c05:rgba(255,255,255,0.3);

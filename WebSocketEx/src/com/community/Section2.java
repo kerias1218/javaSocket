@@ -1,25 +1,31 @@
+package com.community;
+import javax.websocket.Session;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class Other {
-	public Other() {
-		System.out.println("Ohter Data.....");
+public class Section2 {
+
+	Session userSession;
+	
+	public Section2(Session userSession) {
+		this.userSession = userSession;
+		System.out.println("section2 start ....."+userSession);
 	}
 	
-	public JsonElement getOtherData() {
+	public JsonElement getData(String jsonMessage, SocketSession session) {
 
 		JsonObject jo = new JsonObject();
 		
-		jo.addProperty("name", "cobus");
-		jo.addProperty("age", 999);
+		jo.addProperty("sessionId", userSession.getId());
+		jo.addProperty("subType", "section2");
 		
 		JsonArray phones = new JsonArray();
 		phones.add("010-1234-5678");
 		phones.add("031-123-4567");
-		jo.add("phones", phones);
+		jo.add("subContent", phones);
 		
 		JsonArray children = new JsonArray();
 		
@@ -33,28 +39,12 @@ public class Other {
 		child2.addProperty("age", "3");
 		children.add(child2);
 		
-		jo.add("children", children);
+		jo.add("content", children);
 		
 		return jo;
 		
 		//Gson gson = new Gson();
 		//return gson.toJson(jo);
-		
-		
-		/*
-		List<String> otherData = new ArrayList<String>();
-		
-		String name1 = "aaa";
-		String name2 = "bbb";
-		String name3 = "ccc";
-		
-		otherData.add(name1);
-		otherData.add(name2);
-		otherData.add(name3);
-		
-		Gson gson = new Gson();
-		return gson.toJson(otherData);
-		*/
 	
 	}
 }

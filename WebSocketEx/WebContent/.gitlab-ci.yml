@@ -1,0 +1,10 @@
+deploy-to-server:
+  stage: deploy
+  only:
+    - master
+  script:
+    - pwd
+    - ssh -p '22' 'naya@175.193.126.46' "cd dev_chat && git pull origin master && exit"
+  
+  tags:
+    - deploy

@@ -1,0 +1,13 @@
+/*공통요소 설정*/
+@import '__vars.scss';
+@import '__reset.css';
+@import '__common.scss';
+@import '__layout.scss';
+@import '__form.scss';
+
+
+/*메인영역 설정*/
+
+/*사이드 영역*/
+@import 'side.scss';
+@import 'side#chat.scss';

@@ -1,0 +1,166 @@
+/*==== 페이지 공통 설정 파일 =====*/
+
+/*기본 레이아웃 관련*/
+.page_header{
+    position: fixed;
+    width: 100%;
+    background: #f00;
+    height: 50px;
+    line-height: 50px;
+    h1{
+        font-size: 25px;
+        color:#ccc;
+        margin-left: 20px;
+    }
+}
+
+.page_main{
+    padding-top: 60px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 25px;
+    >h1{
+        font-size: 35px;
+        color:$eg_01;
+        margin-bottom: 20px;
+    } 
+}
+
+.page_footer{
+    box-sizing: border-box;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #ccc;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: right;
+    border-top:#333 double 3px;
+    height: 25px;
+    line-height: 25px;
+    >span{
+        padding-right: 20px;
+        font-size: 16px;
+    }
+    a.goto_index{
+        position: absolute;
+        left: 10px;
+        font-size: 16px;
+        text-decoration: none;
+        color:#333;
+        &:hover{
+            color:#f00;
+            text-decoration: underline;
+        }
+    }
+}
+
+/*공통 반복 요소 관련*/
+a.btn{
+    display:inline-block;
+    text-decoration: none;
+    color:#333;
+    background-color: #ccc;
+}
+
+.btn_primary{
+    background: $eg_01;
+    color:#fff;
+}
+
+/*테이블 공통*/
+td, th{
+    border: #333 solid 1px;
+    padding :2px 5px;
+    font-size: 14px;
+    word-spacing: -1;
+}
+
+td.number{
+    text-align: right;
+}
+td.date{
+    text-align: center;
+}
+td.usd{
+    text-align: right;
+    &::before{
+        content:"$";
+    }
+}
+td.rate,span.rate{
+    text-align: right;
+    &::after{
+        content:"%";
+    }
+}
+
+.view_table{
+    th{
+        position: relative;
+        vertical-align: middle;
+        background: $color_info;
+        span{
+            display: block;
+            font-size: 12px;
+            &::before{content:"("}
+            &::after{content:")"}
+        }
+    }
+    td.nick_name{text-align: center;}
+    td.item{text-align: center;}
+    td.code{text-align: center;}
+    td.type{
+        text-align: center;
+        &.bid{color:#00f;}
+        &.ask{color:#f00;}
+    }
+    td.time{text-align: center;}
+    td.profit{
+        text-align: right;
+        &.gain{
+            color:#f00;
+        }
+        &.loss{
+            color:#00f;
+            &::before{content:"-"}
+        }
+    }
+}
+
+.list_table{
+    th{
+        position: relative;
+        vertical-align: middle;
+        background: $color_info;
+        span{
+            display: block;
+            font-size: 12px;
+            &::before{content:"("}
+            &::after{content:")"}
+        }
+    }
+    td.title{
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    td.nick_name{text-align: center;}
+    td.item{text-align: center;}
+    td.code{text-align: center;}
+    td.type{
+        text-align: center;
+        &.bid{color:#00f;}
+        &.ask{color:#f00;}
+    }
+    td.time{text-align: center;}
+    td.profit{
+        text-align: right;
+        &.gain{
+            color:#f00;
+        }
+        &.loss{
+            color:#00f;
+            &::before{content:"-"}
+        }
+    }
+}

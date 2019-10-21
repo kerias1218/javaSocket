@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Layout</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+    <section class="PAGE" data-side="open">
+        <header class="PAGE_HEADER">
+            <h1>유진투자선물 트레이딩커뮤니티</h1>
+        </header>
+        <nav class="PAGE">
+
+        </nav>
+        <main class="PAGE_MAIN">
+            <div class="window_row one">
+                <div class="window one"></div>
+                <div class="window two"></div>
+            </div>
+            <div class="window_row two">
+                <div class="window three"></div>
+                <div class="window four"></div>
+            </div>
+        </main>
+        <div class="SIDE_BAR">
+            <section id="Chatting">
+                <header class="title_bar">
+                    <h1>커뮤니티 체팅</h1>
+                    <h2>체팅방 리스트</h2>
+                    <p class="title_desc"><span class="cnt">0</span>개의 체팅방이 있습니다.</p>
+                </header>
+
+                <div id="Chatting_form_div" class="Chatting_div">
+                    <form id="Chatting_reg_form" class="normal_form">
+                        <div class="form_item">
+                            <label for="Chatting_reg_title">제목</label>
+                            <input type="text" name="title" id="Chatting_reg_title" placeholder="체팅방 제목을 입력하세요"
+                                required="required" />
+                        </div>
+                        <div class="form_item">
+                            <label for="Chatting_reg_desc">설명</label>
+                            <textarea id="Chatting_reg_desc" name="desc" placeholder="체팅방에 대한 설명을 입력하세요"></textarea>
+                        </div>
+                        <div class="btn_div">
+                            <button type="submit" class="btn_Chatting_reg_submit">확 인</button>
+                            <button type="button" class="btn_Chatting_reg_cancel btn_cancel">취 소</button>
+                        </div>
+                    </form>
+                </div><!-- End of #Chatting_form_div-->
+
+                <div id="Chatting_list_div" class="Chatting_div">
+                    <div class="desc nodata">
+                        아직 개설된 체팅방이 없습니다.
+                    </div>
+                    <div class="btn_div">
+                        <button type="button" class="btn_open_chatting">팅방 개설하기</button>
+                    </div>
+                </div><!-- End of #Chatting_list-->
+
+                <div id="Chatting_room_div" class="Chatting_div" data-room_idx="">
+                    <div class="Chatting_room_content_warper">
+                        <div class="chatting_room_content">
+
+                        </div>
+                    </div>
+                    <div class="Chatting_send_form_div">
+                        <form class="Chatting_send_form">
+                            <input type="text" id="Chatting_send_message" placeholder="메세지를 입력하세요" />
+                            <button type="submit" class="btn_Chatting_send_submit">확인</button>
+                        </form>
+                    </div>
+                </div><!-- End of #Chatting_room_div -->
+            </section>
+
+            <section id="Board">
+                게시판용 Section
+            </section>
+        </div><!-- End of #SIDE_BAR-->
+        <footer class="PAGE_FOOTER">
+            <span class="copyright">Copyright 2019 EUGENE INVESTMENT & FUTRUES Co. Ltd All right reserved.</span>
+        </footer>
+
+    </section>
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script src="js/common.js" type="text/javascript"></script>
+    <script src="js/websocketUrl.js" async defer></script>
+    <script src="js/websocket.js" async defer></script>
+    <script src="js/layout.js" async defer></script>
+    <script src="js/side_bar.js" async defer></script>
+    <script src="js/chatting.js" async defer></script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+{
+  "name": "devchat.local",
+  "version": "1.0.0",
+  "description": "유진선물 트레이딩 커뮤니티 로컬테스트",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "http://gitlab.coforward.com:8081/naya/dev_chat.git"
+  },
+  "author": "Na!",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.4.4",
+    "browser-sync": "^2.26.3",
+    "cssnano": "^4.1.8",
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-postcss": "^8.0.0",
+    "gulp-rename": "^1.4.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.1",
+    "postcss-import": "^12.0.1",
+    "postcss-nested": "^4.1.1",
+    "postcss-simple-vars": "^5.0.1"
+  }
+}

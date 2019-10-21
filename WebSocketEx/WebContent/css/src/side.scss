@@ -1,0 +1,16 @@
+/**
+*유진선물 트레이딩 커뮤니티 
+*사이드바 공동요소 설정
+*/
+
+.SIDE_BAR{
+    background: #ff0;
+    >section{
+        height: 100%;
+        >header{
+            background-color: $test_c01;
+            height: 70px;
+            text-align: center;
+        }
+    }
+}

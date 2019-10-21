@@ -18,5 +18,12 @@
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="output" path="WebContent/classes"/>
+	<classpathentry kind="lib" path="/Users/naya/Documents/coforward/javasocket/WebSocketEx/WebContent/WEB-INF/lib/mysql-connector-java-5.1.48-bin.jar">
+		<attributes>
+			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="/Users/naya/Documents/coforward/javasocket/WebSocketEx/WebContent/WEB-INF/lib/httpclient-4.3.6.jar"/>
+	<classpathentry kind="lib" path="/Users/naya/Documents/coforward/javasocket/WebSocketEx/WebContent/WEB-INF/lib/coreframe-core-basic-5.0.22-20171219.035826-99.jar"/>
+	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>

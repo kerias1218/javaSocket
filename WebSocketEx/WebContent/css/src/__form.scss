@@ -1,0 +1,71 @@
+/*==== 서식관련 설정 파일 =====*/
+
+form.normal_form{
+    padding: 10px;
+    .form_item{
+        margin-bottom: 10px;
+        padding-top: 10px;
+        border-top: #333 solid 1px;
+        &:first-child{border-top: none;}
+    }
+    label{
+        display: block;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: -1px;
+        margin-bottom: 5px;
+    }
+    input, select, textarea{
+        box-sizing: border-box;
+        padding: 2px 5px;
+        width: 100%;
+        border: #888 solid 1px;
+    }
+    .btn_div{
+        text-align: right;
+    }
+    button{
+        padding: 3px 10px;
+        &[type="submit"]{
+            background: $eg_01;
+            color:$eg_02;
+        }
+        &.btn_cancel{
+            background: $eg_02;
+            color:$eg_01;
+        }
+    }
+}
+
+
+form.big_form{
+    padding: 10px;
+    .form_item{
+        margin-bottom: 30px;
+    }
+    label{
+        display: block;
+        font-size: 25px;
+        letter-spacing: -1px;
+        margin-bottom: 5px;
+    }
+    input{
+        box-sizing: border-box;
+        padding: 10px;
+        font-size: 25px;
+        width: calc(100% - 45px);
+        margin-left: 45px;
+        border-bottom: #666 solid 2px;
+    }
+    .btn_div{
+        text-align: right;
+    }
+    button{
+        font-size: 25px;
+        padding: 5px 25px;
+        &[type="submit"]{
+            background: $eg_01;
+            color:$eg_02;
+        }
+    }
+}
